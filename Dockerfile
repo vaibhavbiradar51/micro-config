@@ -6,4 +6,4 @@ RUN npm install
 COPY . .
 RUN npm run serve
 EXPOSE 4444
-CMD [ "http-server", "-p 444", "dist" ]
+CMD [ "http-server", "-p 4444", "dist" ]
