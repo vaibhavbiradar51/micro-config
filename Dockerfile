@@ -1,6 +1,9 @@
 FROM node:lts-alpine
+RUN npm install -g http-server
 WORKDIR /app/root
 COPY package*.json ./
 RUN npm install
 COPY . .
-CMD [ "npm", "start"]
+RUN npm start
+EXPOSE 4444
+CMD [ "http-server", "-p 4444", "dist" ]
