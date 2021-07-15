@@ -1,7 +1,7 @@
 {
   "name": "root-html-file",
   "scripts": {
-    "serve": "serve -s -l 9000"
+    "serve": "serve -s -l 4444"
   },
   "devDependencies": {
     "serve": "^12.0.0"
