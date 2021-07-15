@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Coexisting Vue Microfrontends</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="importmap-type" content="systemjs-importmap">
+    <script type="systemjs-importmap">
+      {
+        "imports": {
+          "sidenav": "https://micro-nav-bptzp623xa-uc.a.run.app/js/app.875063ba.js",
+          "todo": "https://micro-todo-bptzp623xa-uc.a.run.app/js/app.a15b8ab6.js",
+          "about": "https://micro-about-bptzp623xa-uc.a.run.app/js/app.b40d6ab8.js",
+          "single-spa": "https://cdnjs.cloudflare.com/ajax/libs/single-spa/4.3.7/system/single-spa.min.js",
+          "vue": "https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js",
+          "vue-router": "https://cdn.jsdelivr.net/npm/vue-router@3.0.7/dist/vue-router.min.js",
+          "vuetify":"https://cdn.jsdelivr.net/npm/vuetify@2.4.0/dist/vuetify.js"
+          
+        }
+      }
+    </script>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/single-spa/4.3.7/system/single-spa.min.js" as="script" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js" as="script" crossorigin="anonymous" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/vuetify@2.4.0/dist/vuetify.js">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/import-map-overrides@1.7.2/dist/import-map-overrides.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.1/system.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.1/extras/amd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.1/extras/named-exports.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.1/extras/named-register.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.1/extras/use-default.min.js"></script>
+  </head>
+  <body>
+    <script >
+      (function() {
+        Promise.all([System.import('single-spa'), System.import('vue'), System.import('vue-router'),System.import('vuetify')]).then(function (modules) {
+          var singleSpa = modules[0];
+          var Vue = modules[1];
+          var VueRouter = modules[2];
+          var Vuetify = modules[3];
+
+          Vue.use(VueRouter)
+          
+
+          singleSpa.registerApplication(
+            'sidenav',
+            () => System.import('sidenav'),
+            location => true
+          );
+
+          singleSpa.registerApplication(
+            'todo',
+            () => System.import('todo'),
+            location => location.pathname.startsWith('/')
+          );
+
+          singleSpa.registerApplication(
+            'about',
+            () => System.import('about'),
+            location => location.pathname.startsWith('/about')
+          );
+
+          singleSpa.start();
+        })
+      })()
+    </script>
+    <!-- See https://github.com/joeldenning/import-map-overrides#user-interface  -->
+    <import-map-overrides-full show-when-local-storage="overrides-ui"></import-map-overrides-full>
+  </body>
+</html>
