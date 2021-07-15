@@ -1,9 +1,10 @@
 {
   "name": "root-html-file",
+  "main": "index.js",
   "scripts": {
-    "serve": "serve -s -l 4444"
+    "start": "serve -s -l 4444"
   },
   "devDependencies": {
-    "serve": "^12.0.0"
+    "serve": "^11.1.0"
   }
 }
