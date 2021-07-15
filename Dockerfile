@@ -4,6 +4,6 @@ WORKDIR /app/root
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN npm run serve
+RUN npm serve
 EXPOSE 4444
 CMD [ "http-server", "-p 4444", "dist" ]
